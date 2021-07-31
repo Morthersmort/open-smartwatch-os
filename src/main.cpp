@@ -37,6 +37,7 @@
 #include "./apps/watchfaces/watchface.h"
 #include "./apps/watchfaces/watchface_binary.h"
 #include "./apps/watchfaces/watchface_digital.h"
+#include "./apps/watchfaces/watchface_80s.h"
 #include "./overlays/overlays.h"
 #if defined(GPS_EDITION)
 #include "./apps/main/map.h"
@@ -87,6 +88,7 @@ void setup() {
   // Fire off the service manager
   OswServiceManager::getInstance().setup(hal);
 
+  watchFaceSwitcher->registerApp(new OswAppWatchface80s());
   watchFaceSwitcher->registerApp(new OswAppWatchface());
   watchFaceSwitcher->registerApp(new OswAppWatchfaceDigital());
   watchFaceSwitcher->registerApp(new OswAppWatchfaceBinary());
