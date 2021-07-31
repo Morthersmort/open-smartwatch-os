@@ -1,3 +1,4 @@
+#define FS_NO_GLOBALS
 #include <FS.h>
 #include <SD.h>
 #include <SPI.h>
@@ -11,23 +12,9 @@
 
 #if defined(GPS_EDITION)
 
-uint8_t OswHal::setupSD() {
-  SD.begin(SD_CS);
-
-  uint8_t cardType = SD.cardType();
-  if (cardType == CARD_NONE) {
-    _hasSD = false;
-    return ERR_SD_MISSING;
-  } else {
-    _hasSD = true;
-    if (!SD.begin(SD_CS)) {
-      return ERR_SD_MOUNT_FAILED;
-    }
-    _isSDMounted = true;
-  }
-
-  return 0;
-}
+// this is a nasty hack and depends on hal/esp32/sd_filesystem.cpp
+extern bool _hasSD;
+extern bool _isSDMounted;
 
 bool OswHal::hasSD(void) { return _hasSD; }
 bool OswHal::isSDMounted(void) { return _isSDMounted; }
@@ -120,7 +107,8 @@ void OswHal::loadOsmTile(Graphics2D *target, int8_t z, float tileX, float tileY,
   pngOffsetY = offsetY;
 
   loadPNGHelper(target, tilePath.c_str());
-  target->drawFrame(offsetX, offsetY, 256, 256, rgb565(200, 0, 0));
+  // debug helper to see tile boundaries:
+  // target->drawFrame(offsetX, offsetY, 256, 256, rgb565(200, 0, 0));
 }
 
 void OswHal::sdOff(void) { SD.end(); }
