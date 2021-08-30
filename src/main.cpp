@@ -71,6 +71,11 @@ OswAppSwitcher *settingsAppSwitcher = new OswAppSwitcher(BUTTON_1, SHORT_PRESS, 
 
 void setup() {
   Serial.begin(115200);
+  
+  pinMode(14, OUTPUT);
+  digitalWrite (14, LOW);
+  pinMode(2, OUTPUT);
+  digitalWrite (2, LOW);
 
   // Load config as early as possible, to ensure everyone can access it.
   OswConfig::getInstance()->setup();
