@@ -37,6 +37,7 @@
 #include "./apps/watchfaces/watchface.h"
 #include "./apps/watchfaces/watchface_binary.h"
 #include "./apps/watchfaces/watchface_digital.h"
+#include "./apps/watchfaces/watchface_triangle.h"
 #include "./overlays/overlays.h"
 #if defined(GPS_EDITION)
 #include "./apps/main/map.h"
@@ -90,6 +91,7 @@ void setup() {
   watchFaceSwitcher->registerApp(new OswAppWatchface());
   watchFaceSwitcher->registerApp(new OswAppWatchfaceDigital());
   watchFaceSwitcher->registerApp(new OswAppWatchfaceBinary());
+  watchFaceSwitcher->registerApp(new OswAppWatchface_triangle());
   mainAppSwitcher->registerApp(watchFaceSwitcher);
 
   randomSeed(hal->getUTCTime()); // Make sure the RTC is loaded and get the real time (!= 0, other than time(nullptr), which is possibly 0 right now)
